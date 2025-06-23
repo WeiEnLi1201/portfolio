@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<!DOCTYPE html>
-<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -294,6 +292,64 @@
         width: 70px;
       }
     }
+    /* Hide the toggle button on desktop */
+#menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  z-index: 1000;
+}
+
+/* Mobile styles */
+@media (max-width: 720px) {
+  /* Show toggle button */
+  #menu-toggle {
+    display: block;
+  }
+
+  /* Initially hide nav links off-screen */
+  header nav {
+    position: fixed;
+    top: 60px; /* header height + some padding */
+    left: -100%;
+    width: 70%;
+    max-width: 300px;
+    height: 100vh;
+    background: #222;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    box-shadow: 4px 0 12px rgba(0,0,0,0.3);
+    transition: left 0.3s ease;
+    overflow-y: auto;
+    z-index: 999;
+  }
+
+  /* When nav is active (shown) */
+  header nav.active {
+    left: 0;
+  }
+
+  /* Nav links vertical, bigger font for mobile tap */
+  header nav a {
+    font-size: 1.2rem;
+    padding: 10px 0;
+    border-bottom: 1px solid #444;
+  }
+
+  /* Remove box-shadow and border-radius on section */
+  section {
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -307,7 +363,9 @@
     <a href="#projects">Projects</a>
     <a href="#contact">Contact</a>
   </nav>
+  <button id="menu-toggle" aria-label="Toggle navigation">&#9776;</button>
 </header>
+
 
 <!-- About / Summary -->
 <section id="about">
@@ -627,6 +685,19 @@
 
   window.addEventListener('scroll', onScrollFadeIn);
   window.addEventListener('load', onScrollFadeIn);
+  const menuToggle = document.getElementById('menu-toggle');
+  const nav = document.querySelector('header nav');
+
+  menuToggle.addEventListener('click', () => {
+    nav.classList.toggle('active');
+  });
+
+  // Optional: close nav when clicking a link (mobile)
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('active');
+    });
+  });
 </script>
 
 
