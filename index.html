@@ -1,313 +1,300 @@
 <!DOCTYPE html>
 <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Li Wei En - Portfolio</title>
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
-<style>
-  /* Reset & Base styles */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  body {
-    font-family: 'Montserrat', sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background-color: #f9fafb;
-    scroll-behavior: smooth;
-  }
-
-  /* Header styles */
-  header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: #222;
-    color: #fff;
-    padding: 15px 20px;
-    display: flex;
-    justify-content: center;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-    z-index: 999;
-  }
-
-  header nav {
-    display: flex;
-    gap: 30px;
-  }
-
-  header nav a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 1rem;
-    transition: color 0.3s ease, transform 0.2s ease;
-    letter-spacing: 0.03em;
-  }
-
-  header nav a:hover {
-    color: #ff4b2b;
-    transform: scale(1.05);
-  }
-
-  /* Sections styling */
-  section {
-    padding: 90px 20px 60px 20px;
-    max-width: 900px;
-    margin: 0 auto;
-    margin-top: 80px; /* offset fixed header */
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-  }
-  section.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  section h2 {
-    font-size: 2.2rem;
-    margin-bottom: 25px;
-    text-align: center;
-    color: #222;
-    position: relative;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-  }
-  section h2::after {
-    content: "";
-    height: 3px;
-    width: 60px;
-    background: linear-gradient(90deg, #ff4b2b, #ff784b);
-    display: block;
-    margin: 12px auto 0 auto;
-    border-radius: 2px;
-  }
-
-  /* About / Summary */
-  #about p {
-    max-width: 700px;
-    margin: 0 auto;
-    font-size: 1.15rem;
-    line-height: 1.8;
-    color: #444;
-    text-align: center;
-  }
-
-  #about img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    box-shadow: 0 0 20px rgba(255,75,43,0.3);
-    border: 3px solid #ff4b2b;
-    margin-bottom: 25px;
-    transition: transform 0.3s ease;
-  }
-  #about img:hover {
-    transform: scale(1.05);
-  }
-
-  /* Lists */
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0 auto;
-    max-width: 700px;
-  }
-
-  li {
-    margin-bottom: 16px;
-    padding-left: 24px;
-    position: relative;
-    font-size: 1.15rem;
-    color: #555;
-  }
-
-  li::before {
-    content: "•";
-    position: absolute;
-    left: 0;
-    color: #ff4b2b;
-    font-size: 1.6rem;
-    line-height: 1;
-  }
-
-  /* Cards: Education, Experience, Projects */
-   .experience-item, .project-item {
-    background: white;
-    padding: 24px 28px;
-    margin-bottom: 28px;
-    border-radius: 12px;
-    box-shadow: 0 8px 22px rgba(0,0,0,0.07);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-   .experience-item:hover, .project-item:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 14px 35px rgba(255,75,43,0.25);
-  }
-
-  .experience-item h3, .project-item h3 {
-    margin-bottom: 14px;
-    color: #222;
-    font-weight: 700;
-    font-size: 1.4rem;
-    letter-spacing: 0.02em;
-  }
-
-   .experience-item p, .project-item p {
-    margin: 6px 0;
-    color: #666;
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-
-  /* School logos */
-  .school-logo {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto 20px auto;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(255,75,43,0.15);
-    transition: transform 0.3s ease;
-  }
-  .school-logo:hover {
-    transform: scale(1.1);
-  }
-
-  /* Skills */
-  .programming-skills-row {
-    display: flex;
-    gap: 24px;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: nowrap;
-  }
-
-  .skill-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 0.95rem;
-    color: #333;
-    min-width: 65px;
-    position: relative;
-    cursor: default;
-  }
-
-  .skill-item img {
-    width: 48px;
-    height: 48px;
-    object-fit: contain;
-    margin-bottom: 8px;
-    padding: 8px;
-    background: #fff5f3;
-    border-radius: 50%;
-    box-shadow: 0 3px 10px rgba(255,75,43,0.15);
-    transition: transform 0.3s ease;
-  }
-  .skill-item:hover img {
-    transform: scale(1.2);
-  }
-
-  /* Contact styles */
-  #contact {
-    text-align: center;
-    padding-bottom: 120px;
-  }
-  #contact p {
-    font-size: 1.25rem;
-    margin-bottom: 14px;
-    color: #444;
-  }
-  #contact a {
-    color: #ff4b2b;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
-  }
-  #contact a:hover {
-    color: #ff784b;
-    text-decoration: underline;
-  }.education-container {
-  max-width: 700px;
-  margin: 0 auto;
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.education-card {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-  width: 320px;
-  text-align: center;
-  transition: transform 0.2s ease;
-}
-
-.education-card:hover {
-  transform: translateY(-5px);
-}
-
-.school-logo {
-  width: 80px;
-  height: auto;
-  display: block;
-  margin: 0 auto 15px auto;
-  object-fit: contain;
-  border-radius: 8px;
-  box-shadow: 0 1px 5px rgba(0,0,0,0.1);
-}
-
-.education-card h3 {
-  margin-bottom: 10px;
-  color: #222;
-}
-
-.education-card p {
-  margin: 6px 0;
-  color: #555;
-  font-size: 1rem;
-}
-
-
-  /* Responsive tweaks */
-  @media (max-width: 720px) {
-    section {
-      padding: 70px 15px 40px 15px;
-      max-width: 100%;
-      border-radius: 0;
-      box-shadow: none;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Li Wei En - Portfolio</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    .education-container {
-      flex-direction: column;
-      gap: 30px;
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f9fafb;
+      scroll-behavior: smooth;
     }
-    .education-card {
+
+    header {
+      position: fixed;
+      top: 0;
       width: 100%;
+      background: #222;
+      color: #fff;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      z-index: 999;
     }
-    .programming-skills-row {
-      gap: 16px;
+
+    header nav {
+      display: flex;
       flex-wrap: wrap;
+      gap: 20px;
       justify-content: center;
     }
-  }
-</style>
 
+    header nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: color 0.3s ease, transform 0.2s ease;
+      letter-spacing: 0.03em;
+    }
+
+    header nav a:hover {
+      color: #ff4b2b;
+      transform: scale(1.05);
+    }
+
+    section {
+      padding: 90px 20px 60px 20px;
+      max-width: 900px;
+      margin: 0 auto;
+      margin-top: 80px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 25px;
+      text-align: center;
+      color: #222;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    section h2::after {
+      content: "";
+      height: 3px;
+      width: 60px;
+      background: linear-gradient(90deg, #ff4b2b, #ff784b);
+      display: block;
+      margin: 12px auto 0 auto;
+      border-radius: 2px;
+    }
+
+    #about p {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #444;
+      text-align: center;
+    }
+
+    #about img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 20px rgba(255,75,43,0.3);
+      border: 3px solid #ff4b2b;
+      margin-bottom: 25px;
+      transition: transform 0.3s ease;
+    }
+
+    #about img:hover {
+      transform: scale(1.05);
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 auto;
+      max-width: 700px;
+    }
+
+    li {
+      margin-bottom: 16px;
+      padding-left: 24px;
+      position: relative;
+      font-size: 1rem;
+      color: #555;
+    }
+
+    li::before {
+      content: "\2022";
+      position: absolute;
+      left: 0;
+      color: #ff4b2b;
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+
+    .experience-item, .project-item {
+      background: white;
+      padding: 24px 28px;
+      margin-bottom: 28px;
+      border-radius: 12px;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.07);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .experience-item:hover, .project-item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 14px 35px rgba(255,75,43,0.25);
+    }
+
+    .experience-item h3, .project-item h3 {
+      margin-bottom: 14px;
+      color: #222;
+      font-weight: 700;
+      font-size: 1.3rem;
+    }
+
+    .experience-item p, .project-item p {
+      margin: 6px 0;
+      color: #666;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .school-logo {
+      width: 80px;
+      height: auto;
+      display: block;
+      margin: 0 auto 15px auto;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    }
+
+    .education-container {
+      max-width: 700px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .education-card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 320px;
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+
+    .education-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .education-card h3 {
+      margin-bottom: 10px;
+      color: #222;
+      font-size: 1.1rem;
+    }
+
+    .education-card p {
+      margin: 6px 0;
+      color: #555;
+      font-size: 0.9rem;
+    }
+
+    .programming-skills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .skill-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.85rem;
+      color: #333;
+      width: 65px;
+      text-align: center;
+    }
+
+    .skill-item img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      margin-bottom: 8px;
+      padding: 8px;
+      background: #fff5f3;
+      border-radius: 50%;
+      box-shadow: 0 3px 10px rgba(255,75,43,0.15);
+      transition: transform 0.3s ease;
+    }
+
+    .skill-item:hover img {
+      transform: scale(1.2);
+    }
+
+    #contact {
+      text-align: center;
+      padding-bottom: 100px;
+    }
+
+    #contact p {
+      font-size: 1rem;
+      margin-bottom: 14px;
+      color: #444;
+    }
+
+    #contact a {
+      color: #ff4b2b;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    #contact a:hover {
+      color: #ff784b;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 720px) {
+      header nav {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      section {
+        padding: 70px 15px 40px 15px;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .education-card {
+        width: 100%;
+      }
+
+      .skill-item {
+        width: 70px;
+      }
+    }
+  </style>
 </head>
 <body>
 
